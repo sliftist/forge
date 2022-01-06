@@ -1,6 +1,55 @@
 Forge ChangeLog
 ===============
 
+## 1.0.0 - 2022-01-04
+
+### Notes
+- **1.0.0**!
+- This project is over a decade old! Time for a 1.0.0 release.
+- The URL related changes may expose bugs in some of the networking related
+  code (unrelated to the much wider used cryptography code). The automated and
+  manual test coverage for this code is weak at best. Issues or patches to
+  update the code or tests would be appreciated.
+
+### Removed
+- **SECURITY**, **BREAKING**: Remove `forge.debug` API. The API has the
+  potential for prototype pollution. This API was only briefly used by the
+  maintainers for internal project debug purposes and was never intended to be
+  used with untrusted user inputs. This API was not documented or advertised
+  and is being removed rather than fixed.
+- **SECURITY**, **BREAKING**: Remove `forge.util.parseUrl()` (and
+  `forge.http.parseUrl` alias) and use the [WHATWG URL
+  Standard](https://url.spec.whatwg.org/). `URL` is supported by modern browers
+  and modern Node.js. This change is needed to address URL parsing security
+  issues. If `forge.util.parseUrl()` is used directly or through `forge.xhr` or
+  `forge.http` APIs, and support is needed for environments without `URL`
+  support, then a polyfill must be used.
+- **BREAKING**: Remove `forge.task` API. This API was never used, documented,
+  or advertised by the maintainers. If anyone was using this API and wishes to
+  continue development it in other project, please let the maintainers know.
+  Due to use in the test suite, a modified version is located in
+  `tests/support/`.
+- **BREAKING**: Remove `forge.util.makeLink`, `forge.util.makeRequest`,
+  `forge.util.parseFragment`, `forge.util.getQueryVariables`. Replace with
+  `URL`, `URLSearchParams`, and custom code as needed.
+
+### Changed
+- **BREAKING**: Increase supported Node.js version to 6.13.0 for URL support.
+- **BREAKING**: Renamed `master` branch to `main`.
+- **BREAKING**: Release process updated to use tooling that prefixes versions
+  with `v`. Other tools, scripts, or scanners may need to adapt.
+- **BREAKING**: Remove docs related to Bower and
+  [forge-dist](https://github.com/digitalbazaar/forge-dist). Install using
+  [another method](./README.md#installation).
+
+### Added
+- OIDs for `surname`, `title`, and `givenName`.
+
+### Fixed
+- **BREAKING**: OID 2.5.4.5 name fixed from `serialName` to `serialNumber`.
+  Depending on how applications used this id to name association it could cause
+  compatibility issues.
+
 ## 0.10.0 - 2020-09-01
 
 ### Changed
@@ -15,7 +64,7 @@ Forge ChangeLog
   from an early time when `forge` was targeted at providing general helper
   functions. The library direction changed to be more focused on cryptography.
   Many other excellent libraries are more suitable for general utilities. If
-  you need a replacement for these functions, consier `get`, `set`, and `unset`
+  you need a replacement for these functions, consider `get`, `set`, and `unset`
   from [lodash](https://lodash.com/). But also consider the potential similar
   security issues with those APIs.
 
