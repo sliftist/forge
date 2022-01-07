@@ -1,6 +1,18 @@
 Forge ChangeLog
 ===============
 
+### Fixed
+- [x509] 'Expected' and 'Actual' issuers were backwards in verification failure
+  message.
+
+## 1.1.0 - 2022-01-06
+
+### Fixed
+- [x509]: Correctly compute certificate issuer and subject hashes to match
+  behavior of openssl.
+- [pem]: Accept certificate requests with "NEW" in the label. "BEGIN NEW
+  CERTIFICATE REQUEST" handled as "BEGIN CERTIFICATE REQUEST".
+
 ## 1.0.0 - 2022-01-04
 
 ### Notes
