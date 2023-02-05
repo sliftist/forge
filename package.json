@@ -119,8 +119,5 @@
     "buffer": false,
     "crypto": false,
     "process": false
-  },
-  "dependencies": {
-    "debugbreak": "^0.9.1"
   }
 }
